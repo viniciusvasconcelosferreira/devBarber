@@ -1,6 +1,8 @@
 import React, {useState, useEffect} from 'react';
 import styled from 'styled-components/native';
 import Stars from '../components/Stars';
+import {useNavigation} from '@react-navigation/native';
+
 const Area = styled.TouchableOpacity`
   background-color: #fff;
   margin-bottom: 20px;
@@ -33,9 +35,20 @@ const SeeProfileButtonText = styled.Text`
   font-size: 13px;
   color: #268596;
 `;
+
 export default ({data}) => {
+  const navigation = useNavigation();
+
+  const handleClick = () => {
+    navigation.navigate('Barber', {
+      id: data.id,
+      avatar: data.avatar,
+      name: data.name,
+      stars: data.stars,
+    });
+  };
   return (
-    <Area>
+    <Area onPress={handleClick}>
       <Avatar source={{uri: data.avatar}} />
       <InfoArea>
         <UserName>{data.name}</UserName>

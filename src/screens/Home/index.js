@@ -18,7 +18,7 @@ import MyLocationIcon from '../../assets/my_location.svg';
 import {useNavigation} from '@react-navigation/native';
 import {request, PERMISSIONS} from 'react-native-permissions';
 import Geolocation from '@react-native-community/geolocation';
-import Api from '../../Api';
+import Api from '../../services/Api';
 
 export default () => {
   const navigation = useNavigation();
@@ -114,8 +114,8 @@ export default () => {
         </LocationArea>
         {loading && <LoadingIcon size="large" color="#fff" />}
         <ListArea>
-          {list.map((item, k) => (
-            <BarberItem key={k} data={item} />
+          {list.map((item, key) => (
+            <BarberItem key={key} data={item} />
           ))}
         </ListArea>
       </Scroller>
