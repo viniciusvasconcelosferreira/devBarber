@@ -55,9 +55,48 @@ export default {
     );
     return await req.json();
   },
-  getBarber: async (id) => {
+  getBarber: async id => {
     const token = await AsyncStorage.getItem('token');
     const req = await fetch(`${BASE_API}/barber/${id}?token=${token}`);
+    return await req.json();
+  },
+  setFavorite: async barberId => {
+    const token = await AsyncStorage.getItem('token');
+    const req = await fetch(`${BASE_API}/user/favorite`, {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({token, barber: barberId}),
+    });
+    return await req.json();
+  },
+  setAppointment: async (
+    userId,
+    service,
+    selectedYear,
+    selectedMonth,
+    selectedDay,
+    selectedHour,
+  ) => {
+    const token = await AsyncStorage.getItem('token');
+    const req = await fetch(`${BASE_API}/user/appointment`, {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        token,
+        id: userId,
+        service,
+        year: selectedYear,
+        month: selectedMonth,
+        day: selectedDay,
+        hour: selectedHour,
+      }),
+    });
     return await req.json();
   },
 };
